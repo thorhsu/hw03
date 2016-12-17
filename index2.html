@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+    <script src="https://d3js.org/d3.v3.js"></script>
+</head>
+
+<body>
+    <div></div>
+    <script>
+        var arr = [85, 60, 99, 49, 77, 82];
+        bind(arr);
+        render();
+        //        for (var i = 0; i < arr.length; i++) {
+        //        
+        //            d3.select("body")
+        //            .append("div")
+        //            .datum(arr[i])
+        //            .text(function(t){
+        //                return t;
+        //            });
+        //        }
+        
+        function bind(data) {
+            var selection = d3.select("body").selectAll("div").data(data);
+            selection.text(function (d) {
+                return d;
+            });
+            selection.enter().append("div");
+            selection.exit().remove();
+        }
+        //不需要再傳值了，div已經與data綁定 
+        function render(){
+            d3.selectAll("div")
+                .style({color: function(d, i){
+                    if(d < 70){
+                       return "red";    
+                    }else{
+                       return "black";
+                    }                   
+                }}).text(function(d, i){
+                return (i + 1) + ":" + d;
+            });
+        }
+        
+    </script>
+
+
+</body>
+
+</html>

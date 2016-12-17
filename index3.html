@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+    <script src="https://d3js.org/d3.v3.js"></script>
+</head>
+
+<body>
+    <svg width="900" height="300" id="svg2">
+        
+    </svg>
+
+    <div></div>
+    <script>
+        var arr = [85, 60, 99, 49, 77, 82];
+        bind(arr);
+//        render();
+        drawBars();
+        //        for (var i = 0; i < arr.length; i++) {
+        //        
+        //            d3.select("body")
+        //            .append("div")
+        //            .datum(arr[i])
+        //            .text(function(t){
+        //                return t;
+        //            });
+        //        }
+
+        function bind(data) {
+            var selection = d3.select("body").selectAll("div").style().data(data);
+            
+            selection.enter().append("div");
+            selection.exit().remove();
+        }
+
+        function drawBars() {
+            var limits = d3.selectAll("div").data();
+            var repeat = limits.length;
+            var gap = 3;
+            var height = 300 - gap * 2;
+            var barHeight = 297 / repeat - gap; //計算bar的寬度
+
+            for (var i = 0; i < repeat; i++) {
+                var color = 'lightgreen';
+                if(limits[i] <= 60)
+                    color = 'red'
+                var startY = (barHeight + gap) * i + gap;
+                d3.select("#svg2").append("line").attr({
+                    x1: 100,
+                    y1: startY + barHeight / 2,
+                    x2: 100 + limits[i],
+                    y2: startY + barHeight / 2,
+                    stroke: color,
+                    "stroke-width": barHeight
+                });
+                d3.select("#svg2").append("text").attr({
+                    x: 100 + limits[i] + gap,
+                    y: startY + gap + barHeight / 2,
+                    "font-size": 12
+                }).text("" + limits[i]);
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>
